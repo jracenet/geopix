@@ -1,0 +1,40 @@
+<doctype html>
+	<html>
+			<link href="js/leaflet.css" rel="stylesheet" type="text/css">
+			<script src="js/leaflet.js"></script>
+			<script src="js/mapManager.js"></script>
+
+			<div id="map" style="height: 100%"></div>
+			<div id="coord"></div>
+
+			<script type="text/javascript">
+
+				if (navigator.geolocation)
+				{
+					navigator.geolocation.getCurrentPosition(suceedLocalization, failLocalization);
+				}
+				else
+				{
+					alert("Votre navigateur ne prend pas en compte la géolocalisation HTML5");
+				}
+
+				function suceedLocalization(position)
+				{
+					lat = position.coords.latitude;
+					lgt = position.coords.longitude;
+
+					var mapManager = new MapManager();
+					mapManager.init();
+					mapManager.setView(lat, lgt, 13);
+					mapManager.addMarker(lat, lgt, 'you\'re here');
+				};
+
+				function failLocalization(error)
+				{
+					console.log('The application won\'t run if you don\'t authorize geolocalization');
+					console.log(error);
+				}
+
+		</script>
+
+	</html>
